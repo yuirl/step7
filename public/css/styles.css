@@ -1,0 +1,17 @@
+thead{
+    color:#a9a9a9;
+    font-size: 12px;
+}
+
+tbody tr:nth-child(even){
+    color:#D3D3D3;
+    height: 24px;
+    text-align: center;
+}
+
+tbody tr:nth-child(odd){
+    color:white;
+    height: 24px;
+    text-align: center;
+}
+
