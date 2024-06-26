@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\ProductController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -25,13 +25,4 @@ Route::get('/', function () {
     } else {
         return redirect()->route('login');
     }
-});
-
-// Add auth middleware to the home route
-Route::get('/home', [App\Http\Controllers\Auth\ProductController::class, 'index'])
-    ->middleware('auth') // Add this line to protect the route
-    ->name('home'); // don't erase or don't move
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('products', ProductController::class);
 });

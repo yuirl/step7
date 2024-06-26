@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ProductsRegister; 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -33,11 +34,8 @@ class ProductController extends Controller
         $products = $query -> paginate(10);
         $companies = Company::all();
 
-        return view('home' , compact ('products' , 'companies') );
+        return view('products.home' , compact ('products' , 'companies') );
     }
-
-
-
 
     //商品登録画面のメーカー名選択用ドロップダウンリスト
     public function create(){
@@ -46,16 +44,7 @@ class ProductController extends Controller
     }
 
     //送付されたデータをデータベースに登録する(商品登録画面)
-    public function store(Request $request){
-        $request  ->  validate([
-            'product_name' => 'required',
-            'company_id' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-            'comment' => 'nullable',
-            'img_path' => 'nullable|image|max:2048',
-        ]);
-
+    public function store(ArticleRequest $request){
         //新しく商品（レコード）を作る
         $product = new Product([
             'product_name' => $request -> get('product_name'),
@@ -87,29 +76,28 @@ class ProductController extends Controller
         return view('products.products_editor', compact('product', 'companies'));
     }
 
-    public function update(Request $request, Product $product){
-        $request -> validate([
-            'product_name' => 'required',
-            'company_id' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
-        ]);
-
+    public function update(ArticleRequest $request, Product $product){
         $product -> product_name = $request -> product_name;
         $product -> company_id = $request -> company_id;
+        $product -> company -> company_name = $product -> company -> company_name; 
         $product -> price = $request -> price;
         $product -> stock = $request -> stock;
         $product -> comment = $request -> comment;
-        
+
         if($request -> hasFile('img_path')){
+            //古い画像を削除
+            if ($product->img_path) {
+                Storage::disk('public') -> delete($product -> img_path);
+            }
+
             $filename = $request -> img_path -> getClientOriginalName();
             $filePath = $request -> img_path -> storeAs('products', $filename, 'public');
-            $product -> img_path = '/storage/?'.$filepath;
+            $product -> img_path = '/storage/' . $filePath;
         }
 
         $product  ->  save();
 
-        return redirect() -> route('products.edit', $product -> id); //hasChanged
+        return redirect() -> route('products.edit', $product -> id); 
     }
 
     //商品情報削除

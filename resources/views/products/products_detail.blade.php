@@ -9,19 +9,19 @@
                 <div class = "card-body">
                     <dl class = "row mt-3">
                         <dt class = "col-sm-3"> {{ __('商品情報ID')}} </dt>
-                        <dd class = "col-sm-9"> {{ $product->id }} </dd>
+                        <dd class = "col-sm-9"> {{ $product -> id }} </dd>
                         <dt class = "col-sm-3"> {{ __('商品画像') }} </dt>
-                        <dd class= "com-sm-9"> <img src="{{ asset($product->img_path) }}" width="300"> </dd>
+                        <dd class= "com-sm-9"> <img src="{{ asset($product -> img_path) }}" width="300"> </dd>
                         <dt class= "col-sm-3"> {{ __('商品名') }} </dt>
-                        <dd class= "com-sm-9"> {{ $product->product_name }} </dd>
+                        <dd class= "com-sm-9"> {{ $product -> product_name }} </dd>
                         <dt class= "col-sm-3"> {{ __('メーカー名') }}</dt>
-                        <dd class= "com-sm-9"> {{ $product->company->name }} </dd>
+                        <dd class= "com-sm-9"> {{ $product -> company -> company_name }} </dd>
                         <dt class= "col-sm-3"> {{ __('価格') }} </dt>
-                        <dd class= "com-sm-9"> {{ $product->price }} </dd>
+                        <dd class= "com-sm-9"> {{ $product -> price }} </dd>
                         <dt class= "col-sm-3"> {{ __('在庫数') }} </dt>
-                        <dd class= "com-sm-9"> {{ $product->stock }} </dd>
+                        <dd class= "com-sm-9"> {{ $product -> stock }} </dd>
                         <dt class= "col-sm-3"> {{ __('コメント') }} </dt>
-                        <dd class= "com-sm-9"> {{ $product->comment }} </dd>
+                        <dd class= "com-sm-9"> {{ $product -> comment }} </dd>
                     </dl>
                     <div class = "row mb-0">
                         <div class = "col-md-6 offset-md-4">

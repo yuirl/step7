@@ -15,7 +15,7 @@
                             <label for="product_name" class="col-md-4 col-form-label text-md-end">{{ __('商品名') }}<span style="color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="product_name" type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}" required autocomplete="product_name" autofocus>
+                                <input id="product_name" type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}" autocomplete="product_name" autofocus>
 
                                 @error('product_name')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="company_id" class="col-md-4 col-form-label text-md-end">{{ __('メーカー名') }}<span style="color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <select id="company_id" class="form-select @error('company_id') is-invalid @enderror" name="company_id" required autocomplete="company_id" size="1">
+                                <select id="company_id" class="form-select @error('company_id') is-invalid @enderror" name="company_id" autocomplete="company_id" size="1">
                                     <option value="" disabled selected>メーカー名を選択</option>
                                 @foreach($companies as $company)
                                     <option value="{{ $company -> id }}">{{ $company -> company_name }}</option>
@@ -48,7 +48,7 @@
                             <label for="price" class="col-md-4 col-form-label text-md-end">{{ __('価格') }}<span style="color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" required autocomplete="price">
+                                <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" autocomplete="price">
 
                                 @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
                             <label for="stock" class="col-md-4 col-form-label text-md-end">{{ __('在庫数') }}<span style="color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="stock" type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" required autocomplete="stock">
+                                <input id="stock" type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" autocomplete="stock">
 
                                 @error('stock')
                                     <span class="invalid-feedback" role="alert">
@@ -84,7 +84,13 @@
                             <label for="img_path" class="col-md-4 col-form-label text-md-end">{{ __('商品画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="img_path" type="file" class="form-control" name="img_path" accept="image/*">
+                                <input id="img_path" type="file" class="form-control @error('img_path') is-invalid @enderror" name="img_path" accept="image/*">
+
+                                @error('img_path')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

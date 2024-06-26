@@ -24,7 +24,7 @@
                             <label for = "product_name" class = "col-md-4 col-form-label text-md-end">{{ __('商品名') }}<span style = "color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id = "product_name" type = "text" class = "form-control @error('product_name') is-invalid @enderror" name = "product_name" value = "{{ $product->product_name }}" required autocomplete = "product_name" autofocus>
+                                <input id = "product_name" type = "text" class = "form-control @error('product_name') is-invalid @enderror" name = "product_name" value = "{{ $product -> product_name }}" autocomplete = "product_name" autofocus>
 
                                 @error('product_name')
                                     <span class = "invalid-feedback" role = "alert">
@@ -38,9 +38,9 @@
                             <label for = "company_id" class = "col-md-4 col-form-label text-md-end">{{ __('メーカー名') }}<span style = "color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <select id = "company_id" class = "form-select @error('company_id') is-invalid @enderror" name = "company_id" required autocomplete = "company_id" size = "1">
+                                <select id = "company_id" class = "form-select @error('company_id') is-invalid @enderror" name = "company_id" autocomplete = "company_id" size = "1">
                                     @foreach($companies as $company)
-                                        <option value = "{{ $company -> id }}">{{ $product -> company_id == $company -> id ? 'selected' : '' }}
+                                        <option value = "{{ $company -> id }}" {{ $product->company_id == $company->id ? 'selected' : '' }}>
                                             {{ $company -> company_name }}
                                         </option>
                                     @endforeach
@@ -59,7 +59,7 @@
                             <label for = "price" class = "col-md-4 col-form-label text-md-end">{{ __('価格') }}<span style = "color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" required autocomplete="price">
+                                <input id="price" type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" autocomplete="price">
 
                                 @error('price')
                                     <span class="invalid-feedback" role="alert">
@@ -73,7 +73,7 @@
                             <label for="stock" class="col-md-4 col-form-label text-md-end">{{ __('在庫数') }}<span style="color: red;">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="stock" type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ $product->stock }}" required autocomplete="stock">
+                                <input id="stock" type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ $product->stock }}" autocomplete="stock">
 
                                 @error('stock')
                                     <span class="invalid-feedback" role="alert">
@@ -95,8 +95,14 @@
                             <label for="img_path" class="col-md-4 col-form-label text-md-end">{{ __('商品画像') }}</label>
 
                             <div class="col-md-6">
-                                <input id="img_path" type="file" class="form-control" name="img_path" accept="image/*">
-                                <img src="{{ asset($product->img_path) }}" alt="商品画像" class="product_image">
+                                <input id="img_path" type="file" class="form-control @error('img_path') is-invalid @enderror" name="img_path" accept="image/*">
+                                <img src="{{ asset($product->img_path) }}" alt="商品画像" class="product_image" width=300>
+
+                                @error('img_path')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -107,7 +113,7 @@
                                 </button>
 
                                 @if (Route::has('home'))
-                                <a class="btn btn-primary" href="{{ route('home') }}">
+                                <a class="btn btn-primary" href="{{ route('products.show', $product) }}">
                                     {{ __('戻る')}}
                                 </a>
                                 @endif
